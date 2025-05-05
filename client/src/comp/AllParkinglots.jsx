@@ -27,7 +27,7 @@ import { FaParking, FaMapMarkerAlt } from 'react-icons/fa';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import Parking from "./Parking";
 
-export default function AllCars() {
+export default function AllParkinglots() {
     let emptyProduct = {
         _id: '',
         nameParkinglot: "",
@@ -88,12 +88,12 @@ export default function AllCars() {
                 const index = findIndexById(product._id);
                 _products[index] = _product;
                 // console.log("p", product)
-                const res = await axios.put(`http://localhost:8090/api/Car/${product._id}`, product);
+                const res = await axios.put(`http://localhost:8090/api/parkinglot/${product._id}`, product);
                 toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
             }
             else {
 
-                const res = await axios.post(`http://localhost:8090/api/Car`, product, {
+                const res = await axios.post(`http://localhost:8090/api/parkinglot`, product, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -254,11 +254,11 @@ export default function AllCars() {
         return formatCurrency(rowData.sizeParkinglot);
     };
 
-    const HandicappedCar = (rowData) => {
-        return <div className="card flex justify-content-center">
-            <ToggleButton disabled checked={rowData.isHandicappedCar} className="w-8rem" />
-        </div>
-    };
+    // const HandicappedCar = (rowData) => {
+    //     return <div className="card flex justify-content-center">
+    //         <ToggleButton disabled checked={rowData.isHandicappedCar} className="w-8rem" />
+    //     </div>
+    // };
 
     const actionBodyTemplate = (rowData) => {
         return (
@@ -277,38 +277,38 @@ export default function AllCars() {
   
 
 
-    const statusBodyTemplate = (rowData) => {
-        const handleParkingClick = () => {
-            setReleaseDate(rowData)
+    // const statusBodyTemplate = (rowData) => {
+    //     const handleParkingClick = () => {
+    //         setReleaseDate(rowData)
 
-            setReleaseCar(true)
-            console.log('Location icon clicked!');
-        };
+    //         setReleaseCar(true)
+    //         console.log('Location icon clicked!');
+    //     };
 
-        const handleLocationClick = () => {
-            console.log("rowData", rowData)
+        // const handleLocationClick = () => {
+        //     console.log("rowData", rowData)
 
-            navigate('/parking', { state: { product: rowData } }); // מעבר לקומפוננטת Parking והעברת פרופס
+        //     navigate('/parking', { state: { product: rowData } }); // מעבר לקומפוננטת Parking והעברת פרופס
 
-            console.log('Parking icon clicked!');
-        };
+        //     console.log('Parking icon clicked!');
+        // };
 
-        return (
-            <button style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-                {rowData.isParkingCar ? (
-                    <>
-                        <FaParking color="green" title="Car is parked" style={{ fontSize: '24px' }} onClick={handleParkingClick} />
-                        <span style={{ marginLeft: '8px', fontSize: '16px' }}>הרכב חונה לשיחרור החניה לחץ כאן</span>
-                    </>
-                ) : (
-                    <>
-                        <FaMapMarkerAlt color="orange" title="Car is not parked" style={{ fontSize: '24px' }} onClick={handleLocationClick} />
-                        <span style={{ marginLeft: '8px', fontSize: '16px' }}> הרכב אינו חונה למציאת החניה הקרובה ביותר לחץ כאן</span>
-                    </>
-                )}
-            </button>
-        );
-    };
+        // return (
+        //     <button style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+        //         {rowData.isParkingCar ? (
+        //             <>
+        //                 <FaParking color="green" title="Car is parked" style={{ fontSize: '24px' }} onClick={handleParkingClick} />
+        //                 <span style={{ marginLeft: '8px', fontSize: '16px' }}>הרכב חונה לשיחרור החניה לחץ כאן</span>
+        //             </>
+        //         ) : (
+        //             <>
+        //                 <FaMapMarkerAlt color="orange" title="Car is not parked" style={{ fontSize: '24px' }} onClick={handleLocationClick} />
+        //                 <span style={{ marginLeft: '8px', fontSize: '16px' }}> הרכב אינו חונה למציאת החניה הקרובה ביותר לחץ כאן</span>
+        //             </>
+        //         )}
+        //     </button>
+        // );
+    // };
   
     const header = (
         <div className="flex flex-wrap gap-2 align-items-center justify-content-between">
@@ -338,12 +338,12 @@ export default function AllCars() {
             <Button label="Yes" icon="pi pi-check" severity="danger" onClick={deleteSelectedProducts} />
         </React.Fragment>
     );
-    const releaseCarDialoge = (
-        <React.Fragment>
-            <Button label="No" icon="pi pi-times" outlined onClick={hideReleaseCarDialog} />
-            <Button label="Yes" icon="pi pi-check" severity="danger" onClick={release} />
-        </React.Fragment>
-    );
+    // const releaseCarDialoge = (
+    //     <React.Fragment>
+    //         <Button label="No" icon="pi pi-times" outlined onClick={hideReleaseCarDialog} />
+    //         <Button label="Yes" icon="pi pi-check" severity="danger" onClick={release} />
+    //     </React.Fragment>
+    // );
     return (
         <div>
             <Toast ref={toast} />
@@ -441,4 +441,4 @@ export default function AllCars() {
         </div>
 
     );
-}
+ }
