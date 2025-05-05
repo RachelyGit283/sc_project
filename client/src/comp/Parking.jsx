@@ -98,7 +98,7 @@ const Parking = () => {
     console.log(allPark.length)
     for (let index = 0; index < allPark.length; index++) {
       const element = allPark[index].locationParkinglot;
-      debugger
+      
       const str = `${element.numberOfStreet} ${element.street}, ${element.city}, ${element.country}`;
       setAddress2(str);
       // handleCalculate()
@@ -110,7 +110,6 @@ const Parking = () => {
       // };
     };
     sortArrayByKey(arrTimes);
-
     optionParking();
   }
   const optionParking = () => {
@@ -118,6 +117,7 @@ const Parking = () => {
       setTravelMinTime(arrTimes[indexOption].key)
       setTravelMinPark(arrTimes[indexOption].value)
       if (indexOption + 1 < arrTimes.length) {
+        
         setbool(true);
         setIndexOption(indexOption + 1)
       }
@@ -135,6 +135,7 @@ const Parking = () => {
     try {
       const res = await axios.get(`http://localhost:8090/api/parkinglot/getParkingEmptyOnSize/${travelMinPark._id}`, params);
       if (res.status === 200) {
+        debugger
         console.log("parking", res.data)
         setGoodP(res.data)
 
