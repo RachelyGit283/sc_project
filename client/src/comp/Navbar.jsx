@@ -14,6 +14,7 @@ const LazyParking = React.lazy(()=>import('.//Parking'))
 
 const Menu = () => {
     const navigate = useNavigate();
+    const rolse = useSelector((state) => state.rolse.rolse);
 
     const items = [
         {  
@@ -32,7 +33,7 @@ const Menu = () => {
             }
         },
         {
-            label: 'PositionedObjects',
+            label: rolse==='managerParkinglot'?'PositionedObjects':":",
             icon: 'pi pi-file-edit',
             command: () => {
                 navigate('/PositionedObjects')

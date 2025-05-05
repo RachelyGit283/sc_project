@@ -10,6 +10,8 @@ import { Dialog } from 'primereact/dialog';
 import { Divider } from 'primereact/divider';
 import { classNames } from 'primereact/utils';
 import { setToken } from "../Store/tokenSlice";
+import { setRolse } from "../Store/tokenSlice";
+
 import { AllCars } from "./AllCars";
 import { useDispatch ,useSelector} from "react-redux";
 import './FormData.css';
@@ -22,6 +24,8 @@ export const Login = () => {
     const [formData, setFormData] = useState({});
     const dispatch=useDispatch()
     const token = useSelector((state) => state.token.token);
+    const rolse = useSelector((state) => state.rolse.rolse);
+
     const navigate = useNavigate();
     const goToOtherComponent = () => {
         navigate("/AllCars");
@@ -46,7 +50,8 @@ export const Login = () => {
             alert(res.data)
           }
           dispatch(setToken(res.data.accessToken))
-  
+          dispatch(setrolse(res.data.rolesUser))
+
             setFormData(data);
             setShowMessage(true);
             
