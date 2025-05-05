@@ -162,14 +162,15 @@ const getParkingEmpty = async (req, res) => {
 //בגודל חניה מסוים כל החניות הפניות
 const getParkingEmptyOnSize = async (req, res) => {
     const { id } = req.params;
-    const { params } = req.body;
+    const { Handicapped, size } = req.query;
+
     try {
         const parkinglot = await Parkinglots.findById(id).populate({
             path: 'allParkinglot',
             match: {
                 isFullParking: false,
-                sizeParking: params.size,
-                isHandicappedParking: params.Handicapped
+                sizeParking: size,
+                isHandicappedParking: Handicapped
             }
         }).exec();
 
@@ -210,7 +211,6 @@ const getCParkingEmpty = async (req, res) => {
 //רק חניות שאינן נכה כל החניונים שיש בהם חניות פניות
 const getParkingLotEmptyNoHandicapped = async (req, res) => {
     const { Handicapped, size } = req.query;
-    // console.log(req.query);
     try {
         // שליפת כל החניונים עם חניות פנויות
         const parkingLots = await Parkinglots.find().populate({

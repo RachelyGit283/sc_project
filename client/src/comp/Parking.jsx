@@ -89,6 +89,7 @@ const Parking = () => {
   //נותן מערך עם זמני הנסיעה הקצרים ביותר
   const shortTime = async (address) => {
     //זו הכתובת המקומית של המחשב 
+    debugger
     setAddress1("49 Dror, Rishon LeZion, Israel");
     //in setAllPark all the parkinglots that ok
     allParking();
@@ -98,26 +99,26 @@ const Parking = () => {
     console.log(allPark.length)
     for (let index = 0; index < allPark.length; index++) {
       const element = allPark[index].locationParkinglot;
-      
       const str = `${element.numberOfStreet} ${element.street}, ${element.city}, ${element.country}`;
       setAddress2(str);
       // handleCalculate()
       let res = await calculateTravelTime(str, address1)
-      // if (res < min) {
-        // min = res;
-        const newItem = { key: `${res}`, value: `${allPark[index]}` };
-        setArrTimes([...arrTimes, newItem]);
-      // };
+      console.log("allPark[index]",allPark[index]._id)
+
+      const newItem = { key: `${res}`, value: `${allPark[index]._id.toString()}` };
+      setArrTimes([...arrTimes, newItem]);
     };
+
     sortArrayByKey(arrTimes);
+    console.log("arrTimes", arrTimes)
     optionParking();
   }
   const optionParking = () => {
     if (indexOption >= 0 && indexOption < arrTimes.length) {
       setTravelMinTime(arrTimes[indexOption].key)
       setTravelMinPark(arrTimes[indexOption].value)
+      
       if (indexOption + 1 < arrTimes.length) {
-        
         setbool(true);
         setIndexOption(indexOption + 1)
       }
@@ -147,7 +148,7 @@ const Parking = () => {
       const res = await axios.put(`http://localhost:8090/api/parking/${goodP[0]._id}`, { intresteCar: product._id });
       if (res.status === 200) {
         console.log("parking", res.data)
-        alert(`car number:${product.numberCar} intersted in park:${travelMinPark._id}`)
+        alert(`car number:${product.numberCar} intersted in park:${travelMinPark}`)
 
       }
     } catch (e) {
@@ -166,23 +167,26 @@ const Parking = () => {
       Handicapped: product.isHandicappedCar,
       size: product.sizeCar
     }
+    console.log("params",params,"travelMinPark",travelMinPark)
     try {
-      const res = await axios.get(`http://localhost:8090/api/parkinglot/getParkingEmptyOnSize/${travelMinPark._id}`, params);
+      const res = await axios.get(`http://localhost:8090/api/parkinglot/getParkingEmptyOnSize/${travelMinPark}`, {
+        params: params
+      });
       if (res.status === 200) {
         setIndexOption(0)
         console.log("parking", res.data)
         setGoodP(res.data)
-
       }
     } catch (e) {
       return [];
     }
     try {
-      const res = await axios.get(`http://localhost:8090/api/parking/P/${goodP[0]._id}`, product._id);
+      console.log(product._id)
+      const res = await axios.put(`http://localhost:8090/api/parking/P/${goodP[0]._id}`, {carParking:product._id});
       if (res.status === 200) {
         console.log("parking", res.data)
         alert(`car number:${product.numberCar} parking in park:${travelMinPark._id}`)
-
+setbool(false)
       }
     } catch (e) {
       return [];
@@ -190,7 +194,8 @@ const Parking = () => {
   };
   const hideInterestedDialog = () => {
     setInterested(false);
-  }; const interestedDialoge = (
+  };
+  const interestedDialoge = (
     <React.Fragment>
       <Button label="interested" icon="pi pi-times" outlined onClick={interestedParking} />
       <Button label="Yes" icon="pi pi-check" severity="danger" onClick={chooseParking} />
@@ -282,7 +287,9 @@ const Parking = () => {
         </div>
       </Dialog>
       {travelMinTime !== null && (
-        <p>זמן הנסיעה המשוער הוא {travelTime} דקות</p>
+        <p>זמן הנסיעה המשוער{travelMinPark} הוא {travelMinTime} דקות</p>
+        
+
       )}
       <br />
       {travelMinTime !== null && (

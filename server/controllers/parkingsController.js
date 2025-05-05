@@ -160,6 +160,7 @@ const updateParkings = async (req, res) => {
 const updatePcar = async (req, res) => {
     const { format } = require("date-fns")
     const { id } = req.params
+    console.log("i hear")
     const { carParking } = req.body
     if (!id || !carParking) {
         return res.status(400).json({ message: 'fields are required' })
