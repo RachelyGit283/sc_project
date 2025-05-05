@@ -15,12 +15,15 @@ import './flags.css';
 import AllCars from './comp/AllCars';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import PositionedObjects from './comp/PositionedObjects';
+import Menu from './comp/Navbar';
 
 
 function App() {
   return (
     <div className="App">
-      <Routes>
+           <Menu/>
+
+      {/* <Routes>
 
         <Route path="/" element={<Login/>} />
         <Route path="/login" element={<Login/>} />
@@ -31,7 +34,7 @@ function App() {
         <Route path="/parking" element={<Parking />} />
         <Route path="/PositionedObjects" element={<PositionedObjects />} />
 
-      </Routes>
+      </Routes> */}
     </div>
   );
 }
