@@ -13,7 +13,6 @@ import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import './index.css';
 import './flags.css';
 import AllCars from './comp/AllCars';
-import TravelCalculator from './comp/TravelCalculator';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import PositionedObjects from './comp/PositionedObjects';
 
