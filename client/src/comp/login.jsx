@@ -177,6 +177,7 @@ import './FormData.css';
 import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import Menu from './Navbar';
+import { setUser } from '../Store/UserSlice';
 
 export default function Login() {
     const [countries, setCountries] = useState([]);
@@ -185,11 +186,13 @@ export default function Login() {
     const dispatch = useDispatch();
     const token = useSelector((state) => state.token.token);
     const rolse = useSelector((state) => state.rolse.rolse);
+    const user = useSelector((state) => state.user.user);
 
     const navigate = useNavigate();
     const goToOtherComponent = () => {
         navigate("/AllCars");
     };
+    
     const goToRegisterComponent = () => {
         navigate("/Register");
     };
@@ -208,6 +211,10 @@ export default function Login() {
             }
             dispatch(setToken(res.data.accessToken));
             dispatch(setRolse(res.data.rolesUser));
+            dispatch(setUser(res.data.foundUser));
+
+            console.log(res.data.rolesUser)
+            console.log(token)
             setFormData(data);
             setShowMessage(true);
 

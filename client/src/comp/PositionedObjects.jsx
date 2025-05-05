@@ -18,6 +18,7 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Tag } from 'primereact/tag';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { FaCheckCircle, FaExclamationCircle, FaTimesCircle } from 'react-icons/fa';
 import { TiParking } from 'react-icons/ti';
@@ -27,13 +28,16 @@ import { set } from 'react-hook-form';
 import { FaParking, FaMapMarkerAlt } from 'react-icons/fa';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 const Positionedparkings = () => {
-    
-    
+        const location = useLocation();
+
+        const { props } = location.state || {};
+
     const [parkings, setParkings] = useState([]);
     
     const [deleteProductDialog, setDeleteProductDialog] = useState(false);
-    const [idParkinglot, setIdParkinglot] = useState("6817ac7b24f991f5dbba5b60");
+    const [idParkinglot, setIdParkinglot] = useState(props._id);
     const toast = useRef(null);
+
 
 let emptyProduct = {
         _id: '',
@@ -69,18 +73,18 @@ let emptyProduct = {
 
         return index;
     };
-    const exportCSV = () => {
-        dt.current.exportCSV();
-    };
+    // const exportCSV = () => {
+    //     dt.current.exportCSV();
+    // };
     const openNew = () => {
         setProduct(emptyProduct);
         setSubmitted(false);
         setChecked(emptyProduct.isHandicappedParking)
         setProductDialog(true);
     };
-    const rightToolbarTemplate = () => {
-        return <Button label="Export" icon="pi pi-upload" className="p-button-help" onClick={exportCSV} />;
-    };
+    // const rightToolbarTemplate = () => {
+    //     return <Button label="Export" icon="pi pi-upload" className="p-button-help" onClick={exportCSV} />;
+    // };
     const confirmDeleteProduct = (product) => {
         console.log("product",product)
         setProduct(product);
@@ -238,8 +242,8 @@ let emptyProduct = {
 
     const getAllParking = async (token) => {
         try {
-
-            const res = await axios.get(`http://localhost:8090/api/Parkinglot/6817ac7b24f991f5dbba5b60`);
+console.log("props",props)
+            const res = await axios.get(`http://localhost:8090/api/Parkinglot/${props._id}`);
             if (res.status === 200) {
                 console.log("parkunglots", res.data.allParkinglot)
                 return res.data.allParkinglot;
@@ -253,7 +257,7 @@ let emptyProduct = {
     return (
         <div>  
                       <Toast ref={toast} />
-            <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
+            <Toolbar className="mb-4" left={leftToolbarTemplate}></Toolbar>
 
         <div className="container">
             {/* שורה למיקום 1 */}

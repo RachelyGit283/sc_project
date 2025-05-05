@@ -26,7 +26,7 @@ const login = async (req, res) => {
             carsUser: foundUser.carsUser
         }
         const accessToken = jwt.sign(userInfo, process.env.ACCESS_TOKEN_SECRET)
-        res.json({ accessToken: accessToken, rolesUser: foundUser.rolesUser })
+        res.json({ accessToken: accessToken, rolesUser: foundUser.rolesUser,foundUser:foundUser })
     } catch (error) {
         return res.status(500).json({ message: 'Error login', error });
     }

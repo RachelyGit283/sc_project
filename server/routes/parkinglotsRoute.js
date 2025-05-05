@@ -14,7 +14,7 @@ router.get("/AllManagers", parkinglotsController.getManagersParkinglot)//
 router.get("/getParkinglots",verifyJWT, parkinglotsController.getParkinglotsByUser)//
 router.get("/:_id", parkinglotsController.getParkinglotsById)//
 router.get("/", parkinglotsController.getAllParkinglots)//
-router.post("/", parkinglotsController.createNewParkinglots)//
+router.post("/", verifyJWT,parkinglotsController.createNewParkinglots)//
 router.delete("/:id",parkinglotsController.deleteParkinglot)//
 router.put("/:id",parkinglotsController.updateParkinglots)//
 

@@ -2,6 +2,14 @@ const Parkinglots = require("../models/Parkinglots");
 const Users = require("../models/Users");
 // creat1
 const createNewParkinglots = async (req, res) => {
+    const { _id } = req.user
+    const user = await Users.findById(_id, { passwordUser: 0 }).lean()
+    if (!user) {
+            return res.status(400).json({ message: 'No user' })
+    }
+    if(user.rolesUser!="managerParkinglot")
+        {            return res.status(400).json({ message: 'No rolse' })
+}
     const { nameParkinglot, managerParkinglot, country, city, street, numberOfStreet, sizeParkinglot } = req.body
     if (!nameParkinglot || !managerParkinglot || !country || !city || !street || !numberOfStreet || !sizeParkinglot) {
         return res.status(400).json({ message: 'the items are required' })

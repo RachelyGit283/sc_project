@@ -7,13 +7,13 @@ const rolseSlice = createSlice({
     initialState: i,
     reducers: {
         setRolse(state, action) {
-            state.rlose = action.payload
+            state.rolse = action.payload;
         },
         logOut(state, action) {
             state.rolse = null;
         }
     }
-})
+});
 
 export const { setRolse, logOut } = rolseSlice.actions
 export default rolseSlice.reducer
