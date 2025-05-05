@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-import { Login } from './comp/login';
-import { Register } from './comp/register';
+import  Login  from './comp/login';
+import  Register  from './comp/register';
 import Parking from './comp/Parking';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -23,18 +23,18 @@ function App() {
     <div className="App">
            <Menu/>
 
-      {/* <Routes>
+      <Routes>
 
         <Route path="/" element={<Login/>} />
-        <Route path="/login" element={<Login/>} />
+        {/* <Route path="/login" element={<Login/>} /> */}
 
-        <Route path="/Register" element={<Register/>} />
+        {/* <Route path="/Register" element={<Register/>} />
         <Route path="/allcars" element={<AllCars />} />
 
         <Route path="/parking" element={<Parking />} />
-        <Route path="/PositionedObjects" element={<PositionedObjects />} />
+        <Route path="/PositionedObjects" element={<PositionedObjects />} /> */}
 
-      </Routes> */}
+      </Routes>
     </div>
   );
 }

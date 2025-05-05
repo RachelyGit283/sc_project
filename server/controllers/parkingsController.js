@@ -1,5 +1,7 @@
 // const Owners = require("../models/Owners");
 const Parkings = require("../models/Parkings");
+const Users = require("../models/Users");
+
 const Parkinglots = require("../models/Parkinglots");
 const Cars = require("../models/Cars");
 
@@ -9,6 +11,15 @@ function isValidString(str) {
     return regex.test(str);
 }
 const createNewParking = async (req, res) => {
+    const { _id } = req.user
+    const user = await Users.findById(_id, { passwordUser: 0 }).lean()
+    if (!user) {
+            return res.status(400).json({ message: 'No user' })
+    }
+    console.log(user.rolesUser)
+    if(user.rolesUser!="managerParkinglot")
+        {            return res.status(400).json({ message: 'No rolse' })
+}
     const { locationParking, isHandicappedParking, sizeParking, parkinglotOfParking, priceParking } = req.body
     if (!locationParking || !sizeParking || !parkinglotOfParking) {
         return res.status(400).json({ message: 'locationParking and sizeParking are required' })

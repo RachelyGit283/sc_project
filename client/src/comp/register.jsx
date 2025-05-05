@@ -14,8 +14,9 @@ import { classNames } from 'primereact/utils';
 import './FormData.css';
 import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+export default function Register() {
 
-export const Register = () => {
+// export const Register = () => {
     const [countries, setCountries] = useState([]);
     const [showMessage, setShowMessage] = useState(false);
     const [formData, setFormData] = useState({});
@@ -29,8 +30,6 @@ export const Register = () => {
         passwordUser: '',
         phoneUser: ' ',
         idUser: ' ',
-        // date: null,
-        // country: null,
         accept: false
     }
 

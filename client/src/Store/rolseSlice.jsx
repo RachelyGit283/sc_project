@@ -8,7 +8,6 @@ const rolseSlice = createSlice({
     reducers: {
         setRolse(state, action) {
             state.rlose = action.payload
-            
         },
         logOut(state, action) {
             state.rolse = null;

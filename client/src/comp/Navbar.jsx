@@ -4,13 +4,15 @@ import { Menubar } from 'primereact/menubar';
 import { InputText } from 'primereact/inputtext';
 import  { Suspense } from 'react';
 import { Link, Route, Routes, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from "react-redux";
+
 import { Badge } from 'primereact/badge';
 import { Avatar } from 'primereact/avatar'; 
-const LazyLogin = React.lazy(()=>import('.//login'))
-const LazyRegister = React.lazy(()=>import('.//register'))
-const LazyAllCars = React.lazy(()=>import('.//AllCars'))
-const LazyPositionedObjects = React.lazy(()=>import('.//PositionedObjects'))
-const LazyParking = React.lazy(()=>import('.//Parking'))
+const LazyLogin = React.lazy(()=>import('./login'))
+const LazyRegister = React.lazy(()=>import('./register'))
+const LazyAllCars = React.lazy(()=>import('./AllCars'))
+const LazyPositionedObjects = React.lazy(()=>import('./PositionedObjects'))
+const LazyParking = React.lazy(()=>import('./Parking'))
 
 const Menu = () => {
     const navigate = useNavigate();
@@ -21,7 +23,7 @@ const Menu = () => {
             label: 'login',
             icon: 'pi pi-check',
             command: () => {
-                navigate('/login')
+                navigate('/Login')
             }
         },
         {
@@ -33,12 +35,14 @@ const Menu = () => {
             }
         },
         {
-            label: rolse==='managerParkinglot'?'PositionedObjects':":",
-            icon: 'pi pi-file-edit',
-            command: () => {
+        
+            label: rolse==='managerParkinglot'?'PositionedObjects':"",
+            icon:  rolse==='managerParkinglot'?'pi pi-file-edit':null,
+            command: rolse==='managerParkinglot'?() => {
                 navigate('/PositionedObjects')
-          
-            }
+            }:() => {
+                navigate('/')
+            },
         },
      
     ];
@@ -48,8 +52,9 @@ const Menu = () => {
     return (
         <div className="card">
             <Menubar model={items} start={start}/>
+            {console.log("rolse",rolse)}
        <Routes>
-       <Route path='/' element={<Suspense fallback="loading..."><LazyLogin /></Suspense> } />
+       {/* <Route path='/' element={<Suspense fallback="loading..."><LazyLogin /></Suspense> } /> */}
         <Route path='/login' element={<Suspense fallback="loading..."><LazyLogin /></Suspense> } />
         <Route path='/AllCars' element={<Suspense fallback="loading..."><LazyAllCars /></Suspense> } />
         <Route path='/Register' element={<Suspense fallback="loading..."><LazyRegister /></Suspense> } />

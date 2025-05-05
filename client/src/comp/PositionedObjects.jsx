@@ -26,7 +26,6 @@ import { ToggleButton } from 'primereact/togglebutton';
 import { set } from 'react-hook-form';
 import { FaParking, FaMapMarkerAlt } from 'react-icons/fa';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
-
 const Positionedparkings = () => {
     
     
@@ -35,6 +34,7 @@ const Positionedparkings = () => {
     const [deleteProductDialog, setDeleteProductDialog] = useState(false);
     const [idParkinglot, setIdParkinglot] = useState("6817ac7b24f991f5dbba5b60");
     const toast = useRef(null);
+
 let emptyProduct = {
         _id: '',
         locationParking: "",
@@ -123,7 +123,11 @@ let emptyProduct = {
                 }
                 else {
                     try {
-                        const res = await axios.post(`http://localhost:8090/api/Parking`, product);
+                        const res = await axios.post(`http://localhost:8090/api/Parking`, product, {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
                         
                     }
                     catch (a) {

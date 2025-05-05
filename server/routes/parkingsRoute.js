@@ -3,7 +3,7 @@ const router = express.Router()
 const verifyJWT = require("../middleware/verifyJWT")
 const parkingsController = require("../controllers/parkingsController")
 router.delete("/:id",parkingsController.deleteParking)//
-router.post("/", parkingsController.createNewParking)//
+router.post("/",verifyJWT, parkingsController.createNewParking)//
 router.get("/getParkingOf/",verifyJWT, parkingsController.getParkingByUser)//
 router.get("/", parkingsController.getAllParkings)//
 router.get("/:_id", parkingsController.getParkingById)//
